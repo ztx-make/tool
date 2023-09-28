@@ -9,10 +9,10 @@ resetPatch() {
     clearDir "$patchDir"
 
     execCmd "cd $sourceDir"
-    if [ -d "$sourceDir/.git" ]; then
+    if [ "$versionControl" = "git" ]; then
         execCmd "git reset --hard"
         execCmd "git clean -df"
-    elif [ -d "$sourceDir/.repo" ]; then
+    elif [ "$versionControl" = "repo" ]; then
         execCmd "repo forall -j$cpuNum -q -c 'git reset --hard; git clean -fd'"
     fi
 

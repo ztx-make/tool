@@ -5,6 +5,8 @@ myFile=$(basename $myPath)
 toolDir=$(dirname $myPath)
 source "$toolDir/library/library.sh"
 
+# TODO: init source use network download
+
 options() {
     sourceVersionControl="git"
 
