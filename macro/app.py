@@ -109,7 +109,7 @@ def main():
     print("out dir: %s" % out_dir)
 
     if not os.path.exists(src_dir):
-        print('[%s] not found' % src_dir)
+        print('[%s] not exists' % src_dir)
         exit(1)
 
     if not os.path.isdir(src_dir):

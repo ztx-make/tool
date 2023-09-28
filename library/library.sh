@@ -38,7 +38,14 @@ projectDir=$(
     cd $toolDir/../
     pwd
 )
-extensionDir="$projectDir/extension"
+if [ -n "$ZTX_MAKE_EXTENSION_DIR" ]; then
+    if [ ! -d "$ZTX_MAKE_EXTENSION_DIR" ]; then
+        echoFatal "extension dir [$ZTX_MAKE_EXTENSION_DIR] not exists"
+    fi
+    extensionDir="$ZTX_MAKE_EXTENSION_DIR"
+else
+    extensionDir="$projectDir/extension"
+fi
 sourceDir="$projectDir/source"
 logDir="$projectDir/log"
 tempDir="$projectDir/temp"
@@ -79,7 +86,7 @@ if [ "$internalFile" = "true" ]; then
         elif [ -d "$sourceDir/.repo" ]; then
             versionControl="repo"
         else
-            echoFatal "$sourceDir must use 'git' or 'repo' as version control"
+            echoFatal "[$sourceDir] must use 'git' or 'repo' as version control"
         fi
         if [ "$rootProcess" = "true" ]; then
             execTask "cleanup"

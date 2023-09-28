@@ -64,7 +64,7 @@ loadRecord() {
         local recordFile="$tempDir/$job/$process.record"
     fi
     if [ ! -f "$recordFile" ]; then
-        echoFatal "record file [$recordFile] not found"
+        echoFatal "record file [$recordFile] not exists"
     fi
     source "$recordFile"
     if [ "$(getRecord RECORD_VERSION)" != "$_RECORD_VERSION" ]; then

@@ -30,7 +30,7 @@ options() {
 
     echoAndCheckEmptyValues "sourceTarFile" "sourceVersionControl"
     if [ ! -f "$sourceTarFile" ]; then
-        echoFatal "tar file [$sourceTarFile] not exists"
+        echoFatal "source tar file [$sourceTarFile] not exists"
     fi
     if [[ ! "$sourceVersionControl" =~ ^(git|repo)$ ]]; then
         echoFatal "version control must be one of [git, repo]"

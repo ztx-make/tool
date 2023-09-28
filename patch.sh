@@ -29,9 +29,9 @@ makePatch() {
 
 applyPatch() {
     if [ ! -d "$patchDir" ]; then
-        echoWarning "$patchDir not found"
+        echoWarning "patch dir [$patchDir] not exists"
     elif [ -z "$(ls -A $patchDir)" ]; then
-        echoWarning "$patchDir empty"
+        echoWarning "patch dir [$patchDir] empty"
     else
         execCmd "cp -rf $patchDir/* $sourceDir"
     fi

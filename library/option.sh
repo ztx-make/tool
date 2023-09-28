@@ -94,21 +94,21 @@ sourceTargetFiles() {
     baseDir="$extensionDir/base"
     seriesDir="$extensionDir/series-$series"
     if [ ! -d "$baseDir" ]; then
-        echoFatal "$baseDir not found"
+        echoFatal "base dir [$baseDir] not exists"
     elif [ ! -d "$seriesDir" ]; then
-        echoFatal "$seriesDir not found"
+        echoFatal "series dir [$seriesDir] not exists"
     else
-        local baseFile="$baseDir/bash.sh"
+        local baseFile="$baseDir/base.sh"
         if [ ! -f "$baseFile" ]; then
-            echoFatal "$baseFile not found"
+            echoFatal "base file [$baseFile] not exists"
         fi
         local seriesFile="$seriesDir/series.sh"
         if [ ! -f "$seriesFile" ]; then
-            echoFatal "$seriesFile not found"
+            echoFatal "series file [$seriesFile] not exists"
         fi
         local targetFile="$seriesDir/$target.sh"
         if [ ! -f "$targetFile" ]; then
-            echoFatal "$targetFile not found"
+            echoFatal "target file [$targetFile] not exists"
         fi
         source "$baseFile"
         source "$seriesFile"
