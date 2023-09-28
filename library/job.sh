@@ -3,16 +3,16 @@
 _RECORD_VERSION="1"
 
 initJob() {
-    if [ -z "$SCL_JOB_ID" ]; then
+    if [ -z "$ZTX_MAKE_JOB_ID" ]; then
         jobId="job_$(currentYmdHMS)"
         jobDir="$tempDir/$jobId"
         if [ -d "$jobDir" ]; then
             echoFatal "job dir [$jobDir] exists"
         fi
         createDirNoLog "$jobDir"
-        export SCL_JOB_ID="$jobId"
+        export ZTX_MAKE_JOB_ID="$jobId"
     else
-        jobId="$SCL_JOB_ID"
+        jobId="$ZTX_MAKE_JOB_ID"
         jobDir="$tempDir/$jobId"
         if [ ! -d "$jobDir" ]; then
             echoFatal "job dir [$jobDir] not exists"

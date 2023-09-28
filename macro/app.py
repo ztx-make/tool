@@ -6,8 +6,8 @@ from typing import *
 
 from processor import ProcessorConfig, ProcessState, ProcessResult, Processor
 
-FEATURE_PREFIX_KEY = 'SCL_FEATURE_KEY_PREFIX'
-FEATURE_PREFIX_DEFAULT = 'ZTX_MACRO_'
+ENV_PREFIX_KEY = 'ZTX_MACRO_ENV_PREFIX'
+ENV_PREFIX_DEFAULT = 'ZTX_MACRO_'
 GLOBAL_CONFIG_FILE_NAME = 'ztx_macro.ini'
 
 SRC_ENCODING_DEFAULT = "UTF-8"
@@ -46,15 +46,15 @@ def load_src_files(root_dir: str, short_path: str = '') -> List[str]:
 
 def load_macro_env_variables() -> Dict[str, Union[str, int]]:
     envs: Dict[str, Union[str, int]] = {}
-    feature_prefix = os.environ[FEATURE_PREFIX_KEY] if FEATURE_PREFIX_KEY in os.environ else FEATURE_PREFIX_DEFAULT
+    env_prefix = os.environ[ENV_PREFIX_KEY] if ENV_PREFIX_KEY in os.environ else ENV_PREFIX_DEFAULT
     for key in os.environ:
-        if key.startswith(feature_prefix):
+        if key.startswith(env_prefix):
             value = os.environ[key]
-            feature_key = key[len(feature_prefix):]
+            env_key = key[len(env_prefix):]
             if value.isdigit():
-                envs[feature_key] = int(value)
+                envs[env_key] = int(value)
             else:
-                envs[feature_key] = value
+                envs[env_key] = value
     return envs
 
 

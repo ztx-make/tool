@@ -49,8 +49,8 @@ createDirNoLog "$logDir"
 createDirNoLog "$tempDir"
 createDirNoLog "$outputDir"
 
-if [ -z "$SCL_ENTRYPOINT_TIME" ]; then
-    export SCL_ENTRYPOINT_TIME=$(currentSeconds)
+if [ -z "$ZTX_MAKE_ENTRYPOINT_TIME" ]; then
+    export ZTX_MAKE_ENTRYPOINT_TIME=$(currentSeconds)
 fi
 
 if [ "$internalFile" = "true" ]; then
@@ -59,18 +59,18 @@ if [ "$internalFile" = "true" ]; then
     if [ "$myProcess" != "run" ]; then
         initJob
 
-        if [ -z "$SCL_PROCESS_START_TIME" ]; then
-            export SCL_PROCESS_START_TIME=$(currentSeconds)
+        if [ -z "$ZTX_MAKE_PROCESS_START_TIME" ]; then
+            export ZTX_MAKE_PROCESS_START_TIME=$(currentSeconds)
             rootProcess="true"
         else
             rootProcess="fasle"
         fi
 
-        appendRecord "ENTRYPOINT_TIME" "$SCL_ENTRYPOINT_TIME"
-        appendRecord "PROCESS_START_TIME" "$SCL_PROCESS_START_TIME"
+        appendRecord "ENTRYPOINT_TIME" "$ZTX_MAKE_ENTRYPOINT_TIME"
+        appendRecord "PROCESS_START_TIME" "$ZTX_MAKE_PROCESS_START_TIME"
 
-        parentFile="$SCL_LAST_EXEC_FILE"
-        export SCL_LAST_EXEC_FILE="$myFile"
+        parentFile="$ZTX_MAKE_LAST_EXEC_FILE"
+        export ZTX_MAKE_LAST_EXEC_FILE="$myFile"
     fi
 
     if [ "$myProcess" != "run" ] && [ "$myProcess" != "init" ]; then

@@ -81,14 +81,14 @@ parseOptions() {
     fi
 
     if [ -z "$releaseTime" ]; then
-        releaseTime="$SCL_ENTRYPOINT_TIME"
+        releaseTime="$ZTX_MAKE_ENTRYPOINT_TIME"
     fi
 }
 
 sourceTargetFiles() {
     series="${target:0:1}"
-    if [ -n "$ZTX_EXTENSION_SERIES" ] && [ "$series" != "$ZTX_EXTENSION_SERIES" ]; then
-        echoFatal "[input:series-$series] != [env:series-$ZTX_EXTENSION_SERIES]"
+    if [ -n "$ZTX_MAKE_EXTENSION_SERIES" ] && [ "$series" != "$ZTX_MAKE_EXTENSION_SERIES" ]; then
+        echoFatal "[input:series-$series] != [env:series-$ZTX_MAKE_EXTENSION_SERIES]"
     fi
 
     baseDir="$extensionDir/base"

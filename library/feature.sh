@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export SCL_FEATURE_KEY_PREFIX="ZTX_MACRO_"
+export ZTX_MACRO_ENV_PREFIX="ZTX_MACRO_"
 
 initFeature() {
     features=("${features[@]}")
@@ -17,7 +17,7 @@ initFeature() {
         done
 
         features[${#features[@]}]="$key"
-        export ${SCL_FEATURE_KEY_PREFIX}$key="$value"
+        export ${ZTX_MACRO_ENV_PREFIX}$key="$value"
     done
 }
 
@@ -26,7 +26,7 @@ setFeature() {
     local value="$2"
     echoGray "setFeature: $key = $value"
 
-    local envName="${SCL_FEATURE_KEY_PREFIX}$key"
+    local envName="${ZTX_MACRO_ENV_PREFIX}$key"
 
     set +o errexit
     declare -p "$envName" >/dev/null 2>&1
@@ -34,7 +34,7 @@ setFeature() {
     set -o errexit
 
     if [ "$exitCode" = "0" ]; then
-        export ${SCL_FEATURE_KEY_PREFIX}$key="$value"
+        export ${ZTX_MACRO_ENV_PREFIX}$key="$value"
     else
         echoFatal "unexpected feature: $key"
     fi
@@ -42,7 +42,7 @@ setFeature() {
 
 getFeature() {
     local key="$1"
-    local envName="${SCL_FEATURE_KEY_PREFIX}$key"
+    local envName="${ZTX_MACRO_ENV_PREFIX}$key"
     echo "${!envName}"
 }
 

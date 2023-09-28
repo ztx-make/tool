@@ -1,29 +1,29 @@
 #!/bin/bash
 
-if [ -z "$SCL_ECHO_PREFIX" ]; then
-    export SCL_ECHO_PREFIX="-"
+if [ -z "$ZTX_MAKE_ECHO_PREFIX" ]; then
+    export ZTX_MAKE_ECHO_PREFIX="-"
 fi
 
 echoColor() {
     local color="$1"
     local text="$2"
     local message=""
-    if [ "$SCL_ECHO_COLOR" != "false" ]; then
+    if [ "$ZTX_MAKE_ECHO_COLOR" != "false" ]; then
         message="$color"
     fi
     message="$message[$(logTimestamp)]"
-    if [ -n "$SCL_ECHO_PREFIX" ]; then
-        message="$message $SCL_ECHO_PREFIX"
+    if [ -n "$ZTX_MAKE_ECHO_PREFIX" ]; then
+        message="$message $ZTX_MAKE_ECHO_PREFIX"
     fi
     message="$message $text"
-    if [ "$SCL_ECHO_COLOR" != "false" ]; then
+    if [ "$ZTX_MAKE_ECHO_COLOR" != "false" ]; then
         message="$message\e[m"
     fi
     echo -e "$message"
-    if [ -n "$SCL_LOG_FILE" ]; then
-        local dir=$(dirname "$SCL_LOG_FILE")
+    if [ -n "$ZTX_MAKE_LOG_FILE" ]; then
+        local dir=$(dirname "$ZTX_MAKE_LOG_FILE")
         createDirNoLog "$dir"
-        echo -e "$message" >>"$SCL_LOG_FILE"
+        echo -e "$message" >>"$ZTX_MAKE_LOG_FILE"
     fi
 }
 
@@ -76,9 +76,9 @@ echoSkip() {
 
 echoCompleted() {
     if [ -z "$parentFile" ]; then
-        local startTime="$SCL_PROCESS_START_TIME"
+        local startTime="$ZTX_MAKE_PROCESS_START_TIME"
         if [ -z "$startTime" ]; then
-            startTime="$SCL_ENTRYPOINT_TIME"
+            startTime="$ZTX_MAKE_ENTRYPOINT_TIME"
         fi
         local endTime=$(currentSeconds)
         local elapsedTime=$(getElapsedTime "$startTime" "$endTime")
@@ -89,7 +89,7 @@ echoCompleted() {
 }
 
 echoValues() {
-    if [ "$SCL_CFG_DISABLE_ECHO_VALUES" = "true" ]; then
+    if [ "$ZTX_MAKE_DISABLE_ECHO_VALUES" = "true" ]; then
         return 0
     fi
 
@@ -101,13 +101,13 @@ echoValues() {
         typesetResult=$(typeset -p $value 2>/dev/null)
         set -o errexit
         local message="\e[94m[$(logTimestamp)] "
-        if [ -n "$SCL_ECHO_PREFIX" ]; then
-            message="$message$SCL_ECHO_PREFIX "
+        if [ -n "$ZTX_MAKE_ECHO_PREFIX" ]; then
+            message="$message$ZTX_MAKE_ECHO_PREFIX "
         fi
         message="$message%-${maxLength}s = %s\n\e[m"
 
-        if [ -n "$SCL_LOG_FILE" ]; then
-            local dir=$(dirname "$SCL_LOG_FILE")
+        if [ -n "$ZTX_MAKE_LOG_FILE" ]; then
+            local dir=$(dirname "$ZTX_MAKE_LOG_FILE")
             createDirNoLog "$dir"
         fi
 
@@ -115,14 +115,14 @@ echoValues() {
             local arrayValue="${value}[*]"
             printf "$message" "$value" "${!arrayValue}"
 
-            if [ -n "$SCL_LOG_FILE" ]; then
-                printf "$message" "$value" "${!arrayValue}" >>"$SCL_LOG_FILE"
+            if [ -n "$ZTX_MAKE_LOG_FILE" ]; then
+                printf "$message" "$value" "${!arrayValue}" >>"$ZTX_MAKE_LOG_FILE"
             fi
         else
             printf "$message" "$value" "${!value}"
 
-            if [ -n "$SCL_LOG_FILE" ]; then
-                printf "$message" "$value" "${!value}" >>"$SCL_LOG_FILE"
+            if [ -n "$ZTX_MAKE_LOG_FILE" ]; then
+                printf "$message" "$value" "${!value}" >>"$ZTX_MAKE_LOG_FILE"
             fi
         fi
     done

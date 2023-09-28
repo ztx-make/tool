@@ -5,13 +5,13 @@ if [ -z "$TIME_SERVER_URL" ]; then
 fi
 
 loadTimeOffset() {
-    if [ -z "$SCL_TIME_OFFSET" ]; then
+    if [ -z "$ZTX_MAKE_TIME_OFFSET" ]; then
         local serverTimeStr=$(curl -k -I "$TIME_SERVER_URL" 2>/dev/null | grep -i "^date:" | sed "s/^[Dd]ate: //g")
         if [ -n "$serverTimeStr" ]; then
             local serverTime=$(date +%s -d "$serverTimeStr")
             local localTime=$(date +%s)
             local offset=$((serverTime - localTime))
-            export SCL_TIME_OFFSET="$offset"
+            export ZTX_MAKE_TIME_OFFSET="$offset"
         else
             echoFatal "load time offset error"
         fi
@@ -19,11 +19,11 @@ loadTimeOffset() {
 }
 
 currentSeconds() {
-    local offset="$SCL_TIME_OFFSET"
+    local offset="$ZTX_MAKE_TIME_OFFSET"
     if [ -z "$offset" ]; then
         offset="0"
     fi
-    date +%s -d "$SCL_TIME_OFFSET second"
+    date +%s -d "$ZTX_MAKE_TIME_OFFSET second"
 }
 
 currentLocalSeconds() {
