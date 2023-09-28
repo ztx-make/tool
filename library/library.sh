@@ -29,6 +29,7 @@ source "$toolDir/library/string.sh"
 source "$toolDir/library/exec.sh"
 source "$toolDir/library/process.sh"
 source "$toolDir/library/file.sh"
+source "$toolDir/library/feature.sh"
 source "$toolDir/library/job.sh"
 
 loadTimeOffset
@@ -84,8 +85,7 @@ if [ "$internalFile" = "true" ]; then
             execTask "cleanup"
             execTask "update extension"
         fi
-        # TODO: options
-        # source "$toolDir/library/option.sh"
-        # execTask "options" "$@"
+        source "$toolDir/library/option.sh"
+        execTask "options" "$@"
     fi
 fi

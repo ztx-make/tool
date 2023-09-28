@@ -9,14 +9,14 @@ options() {
     sourceVersionControl="git"
 
     if [ -z "$1" ]; then
-        if [ -z "$STALKER_SERIES" ]; then
+        if [ -z "$ZTX_EXTENSION_SERIES" ]; then
             echoFatal "tar file path missing"
         else
-            if [ -f "/origin/series-$STALKER_SERIES/artifact/source.repo.tar" ]; then
-                sourceTarFile="/origin/series-$STALKER_SERIES/artifact/source.repo.tar"
+            if [ -f "/origin/series-$ZTX_EXTENSION_SERIES/artifact/source.repo.tar" ]; then
+                sourceTarFile="/origin/series-$ZTX_EXTENSION_SERIES/artifact/source.repo.tar"
                 sourceVersionControl="repo"
             else
-                sourceTarFile="/origin/series-$STALKER_SERIES/artifact/source.git.tar"
+                sourceTarFile="/origin/series-$ZTX_EXTENSION_SERIES/artifact/source.git.tar"
             fi
         fi
     else
